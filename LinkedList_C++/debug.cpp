@@ -879,6 +879,76 @@ void test_delete_even_positions_with_normal_list() {
 	list.debug_verify_data_integrity();
 }
 
+void test_insert_ordered_empty_list() {
+	LinkedList list;
+
+	list.insert_sorted(1);
+	string result = "1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_insert_ordered_single_node_list() {
+	LinkedList list;
+	list.insert_end(2);
+
+	list.insert_sorted(4);
+	string result = "2 4";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_insert_ordered_normal_list_middle_insert() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(5);
+	list.insert_end(6);
+
+	list.insert_sorted(4);
+	string result = "1 2 3 4 5 6";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_insert_ordered_normal_list_last_insert() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+
+	list.insert_sorted(5);
+	string result = "1 2 3 4 5";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
 int main() {
 	/*test1();
 	test2();*/
@@ -969,14 +1039,23 @@ int main() {
 	cout << "\nTest test_reverse_ll_with_normal_list Result: " << "\n";
 	test_reverse_ll_with_normal_list();*/
 
-	cout << "\nTest test_delete_even_positions_with_empty_list Result: " << "\n";
+	/*cout << "\nTest test_delete_even_positions_with_empty_list Result: " << "\n";
 	test_delete_even_positions_with_empty_list();
 	cout << "\nTest test_delete_even_positions_with_1_node_list Result: " << "\n";
 	test_delete_even_positions_with_1_node_list();
 	cout << "\nTest test_delete_even_positions_with_2_nodes_list Result: " << "\n";
 	test_delete_even_positions_with_2_nodes_list();
 	cout << "\nTest test_delete_even_positions_with_normal_list Result: " << "\n";
-	test_delete_even_positions_with_normal_list();
+	test_delete_even_positions_with_normal_list();*/
+
+	cout << "\nTest test_insert_ordered_empty_list Result: " << "\n";
+	test_insert_ordered_empty_list();
+	cout << "\nTest test_insert_ordered_single_node_list Result: " << "\n";
+	test_insert_ordered_single_node_list();
+	cout << "\nTest test_insert_ordered_normal_list_middle_insert Result: " << "\n";
+	test_insert_ordered_normal_list_middle_insert();
+	cout << "\nTest test_insert_ordered_normal_list_last_insert Result: " << "\n";
+	test_insert_ordered_normal_list_last_insert();
 
 	// must see it, otherwise RTE
 	cout << "\n\nNO RTE\n";

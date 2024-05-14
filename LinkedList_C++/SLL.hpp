@@ -431,4 +431,45 @@ public:
 	void delete_even_positions() {
 		delete_even_positions_internal(head, 1);
 	}
+
+	void insert_next_to(Node* node, int data) {
+		assert(node != nullptr);
+
+		Node* temp = node->next;
+		node->next = new Node(data);
+		node->next->next = temp;
+		add_node(node->next);
+	}
+
+	void insert_sorted(int data) {
+		if (head == nullptr) {
+			insert_front(data);
+			return;
+		}
+
+		Node* ptr = head;
+
+		while (ptr) {
+			if (data <= ptr->data) {
+				Node* newNode = new Node(data);
+				newNode->next = ptr;
+				add_node(newNode);
+				if (ptr == head)
+					head = newNode;
+				break;
+			}
+			else if (data > ptr->data && !ptr->next) {
+				insert_end(data);
+				break;
+			}
+			else if (data > ptr->data && ptr->next) {
+				if (data < ptr->next->data) {
+					insert_next_to(ptr, data);
+					break;
+				}
+			}
+
+			ptr = ptr->next;
+		}
+	}
 };
