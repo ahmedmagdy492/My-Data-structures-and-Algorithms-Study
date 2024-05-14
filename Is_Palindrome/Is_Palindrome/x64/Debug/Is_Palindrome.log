@@ -1,0 +1,4 @@
+﻿  Main.cpp
+D:\Dev\Studying\Data Structures and Algorithmes\Problems\Is_Palindrome\Main.cpp(21,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Dev\Studying\Data Structures and Algorithmes\Problems\Is_Palindrome\Main.cpp(53,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Is_Palindrome.vcxproj -> D:\Dev\Studying\Data Structures and Algorithmes\Problems\Is_Palindrome\x64\Debug\Is_Palindrome.exe

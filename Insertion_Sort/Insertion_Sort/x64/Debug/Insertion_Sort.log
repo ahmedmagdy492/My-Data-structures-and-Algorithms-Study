@@ -1,0 +1,4 @@
+﻿  Main.c
+D:\Dev\Studying\Data Structures and Algorithmes\Problems\Insertion_Sort\Main.c(36,25): warning C4020: 'InsertionSort': too many actual parameters
+D:\Dev\Studying\Data Structures and Algorithmes\Problems\Insertion_Sort\Main.c(60,2): warning C4013: 'free' undefined; assuming extern returning int
+D:\Dev\Studying\Data Structures and Algorithmes\Problems\Insertion_Sort\Main.c(60,10): error C2065: 'key': undeclared identifier

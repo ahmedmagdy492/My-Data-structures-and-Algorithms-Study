@@ -1,0 +1,11 @@
+﻿  Main.cpp
+D:\Dev\Studying\Data Structures and Algorithmes\Problems\Dynamic_Arr_DS\helpers\Vector.hpp(92,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'src/Main.cpp')
+  
+D:\Dev\Studying\Data Structures and Algorithmes\Problems\Dynamic_Arr_DS\helpers\Vector.hpp(104,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'src/Main.cpp')
+  
+D:\Dev\Studying\Data Structures and Algorithmes\Problems\Dynamic_Arr_DS\helpers\Vector.hpp(114,12): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'src/Main.cpp')
+  
+  Dynamic_Arr_DS.vcxproj -> D:\Dev\Studying\Data Structures and Algorithmes\Problems\Dynamic_Arr_DS\x64\Debug\Dynamic_Arr_DS.exe
