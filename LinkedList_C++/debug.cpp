@@ -949,6 +949,285 @@ void test_insert_ordered_normal_list_last_insert() {
 	list.debug_verify_data_integrity();
 }
 
+
+void test_swap_head_and_tail_empty_list() {
+	LinkedList list;
+
+	list.swap_head_and_tail();
+	string result = "";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_swap_head_and_tail_single_node_list() {
+	LinkedList list;
+	list.insert_end(1);
+
+	list.swap_head_and_tail();
+	string result = "1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_swap_head_and_tail_2_nodes_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+
+	const Node* oldHead = list.get_head();
+	const Node* oldTail = list.get_tail();
+
+	list.swap_head_and_tail();
+	string result = "2 1";
+	string expected = list.debug_to_string();
+
+	const Node* newHead = list.get_head();
+	const Node* newTail = list.get_tail();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	assert(oldHead == newTail);
+	assert(oldTail == newHead);
+
+	list.debug_verify_data_integrity();
+}
+
+void test_swap_head_and_tail_normal_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+
+	const Node* oldHead = list.get_head();
+	const Node* oldTail = list.get_tail();
+
+	list.swap_head_and_tail();
+	string result = "5 2 3 4 1";
+	string expected = list.debug_to_string();
+
+	const Node* newHead = list.get_head();
+	const Node* newTail = list.get_tail();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	assert(oldHead == newTail);
+	assert(oldTail == newHead);
+
+	list.debug_verify_data_integrity();
+}
+
+
+void test_rotate_left_with_k_equals_1() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+
+
+	list.left_rotate(1);
+	string result = "2 3 4 5 1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_rotate_left_with_k_equals_3() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+
+
+	list.left_rotate(3);
+	string result = "4 5 1 2 3";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_rotate_left_with_k_equals_3_and_2_nodes() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+
+	list.left_rotate(3);
+	string result = "2 1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_rotate_left_with_k_equals_4() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+
+	list.left_rotate(4);
+	string result = "2 3 1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicates_with_normal_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(1);
+	list.insert_end(3);
+	list.insert_end(2);
+	list.insert_end(4);
+	list.insert_end(3);
+	list.insert_end(5);
+	list.insert_end(2);
+
+	list.remove_duplicates();
+	string result = "1 2 3 4 5";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicates_with_repeated_values_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(3);
+	list.insert_end(3);
+	list.insert_end(3);
+	list.insert_end(5);
+
+	list.remove_duplicates();
+	string result = "1 2 3 5";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicates_no_duplicates_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+
+	list.remove_duplicates();
+	string result = "1 2 3 4 5";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicates_empty_list() {
+	LinkedList list;
+
+	list.remove_duplicates();
+	string result = "";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicates_single_node_list() {
+	LinkedList list;
+	list.insert_end(1);
+
+	list.remove_duplicates();
+	string result = "1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicates_2_duplicate_nodes_list() {
+	LinkedList list;
+	list.insert_end(2);
+	list.insert_end(2);
+
+	list.remove_duplicates();
+	string result = "2";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
 int main() {
 	/*test1();
 	test2();*/
@@ -1048,14 +1327,45 @@ int main() {
 	cout << "\nTest test_delete_even_positions_with_normal_list Result: " << "\n";
 	test_delete_even_positions_with_normal_list();*/
 
-	cout << "\nTest test_insert_ordered_empty_list Result: " << "\n";
+	/*cout << "\nTest test_insert_ordered_empty_list Result: " << "\n";
 	test_insert_ordered_empty_list();
 	cout << "\nTest test_insert_ordered_single_node_list Result: " << "\n";
 	test_insert_ordered_single_node_list();
 	cout << "\nTest test_insert_ordered_normal_list_middle_insert Result: " << "\n";
 	test_insert_ordered_normal_list_middle_insert();
 	cout << "\nTest test_insert_ordered_normal_list_last_insert Result: " << "\n";
-	test_insert_ordered_normal_list_last_insert();
+	test_insert_ordered_normal_list_last_insert();*/
+
+	/*cout << "\nTest test_swap_head_and_tail_empty_list Result: " << "\n";
+	test_swap_head_and_tail_empty_list();
+	cout << "\nTest test_swap_head_and_tail_single_node_list Result: " << "\n";
+	test_swap_head_and_tail_single_node_list();
+	cout << "\nTest test_swap_head_and_tail_2_nodes_list Result: " << "\n";
+	test_swap_head_and_tail_2_nodes_list();
+	cout << "\nTest test_swap_head_and_tail_normal_list Result: " << "\n";
+	test_swap_head_and_tail_normal_list();*/
+
+	/*cout << "\nTest test_rotate_left_with_k_equals_1 Result: " << "\n";
+	test_rotate_left_with_k_equals_1();
+	cout << "\nTest test_rotate_left_with_k_equals_3 Result: " << "\n";
+	test_rotate_left_with_k_equals_3();
+	cout << "\nTest test_rotate_left_with_k_equals_4_and_2_nodes Result: " << "\n";
+	test_rotate_left_with_k_equals_3_and_2_nodes();
+	cout << "\nTest test_rotate_left_with_k_equals_4 Result: " << "\n";
+	test_rotate_left_with_k_equals_4();*/
+
+	cout << "\nTest test_remove_duplicates_with_normal_list Result: " << "\n";
+	test_remove_duplicates_with_normal_list();
+	cout << "\nTest test_remove_duplicates_with_repeated_values_list Result: " << "\n";
+	test_remove_duplicates_with_repeated_values_list();
+	cout << "\nTest test_remove_duplicates_no_duplicates_list Result: " << "\n";
+	test_remove_duplicates_no_duplicates_list();
+	cout << "\nTest test_remove_duplicates_empty_list Result: " << "\n";
+	test_remove_duplicates_empty_list();
+	cout << "\nTest test_remove_duplicates_single_node_list Result: " << "\n";
+	test_remove_duplicates_single_node_list();
+	cout << "\nTest test_remove_duplicates_2_duplicate_nodes_list Result: " << "\n";
+	test_remove_duplicates_2_duplicate_nodes_list();
 
 	// must see it, otherwise RTE
 	cout << "\n\nNO RTE\n";

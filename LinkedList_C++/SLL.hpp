@@ -7,6 +7,7 @@
 #include <vector>		// for debug
 #include <algorithm>
 #include <sstream>
+#include <unordered_map>
 
 #include "Node.h"
 
@@ -46,6 +47,14 @@ public:
 
 		head = tail = nullptr;
 		length = 0;
+	}
+
+	const Node* get_head() {
+		return head;
+	}
+
+	const Node* get_tail() {
+		return tail;
 	}
 
 	// Below 2 deletes prevent copy and assign to avoid this mistake
@@ -470,6 +479,71 @@ public:
 			}
 
 			ptr = ptr->next;
+		}
+	}
+
+	void swap_head_and_tail() {
+		if (head == nullptr) return;
+		if (head == tail) return;
+
+		if (head->next == tail) {
+			tail->next = head;
+			head->next = nullptr;
+			Node* temp = head;
+			head = tail;
+			tail = temp;
+			return;
+		}
+
+		Node* ptr = head, * prev = nullptr;
+
+		while (ptr && ptr->next) {
+			prev = ptr;
+			ptr = ptr->next;
+		}
+
+		tail->next = head->next;
+		prev->next = head;
+		head->next = nullptr;
+		Node* temp = tail;
+		tail = head;
+		head = temp;
+	}
+
+	void left_rotate(int k) {
+
+		int n = k > length ? k % length : k;
+
+		if (head == nullptr)
+			return;
+		if (head == tail)
+			return;
+
+		for (int i = 1; i <= n; ++i) {
+			Node* headNext = head->next;
+			tail->next = head;
+			head->next = nullptr;
+			tail = head;
+			head = headNext;
+		}
+	}
+
+	void remove_duplicates() {
+		unordered_map<int, int> hashtable;
+
+		Node* ptr = head, * prev = nullptr;
+
+		while (ptr) {
+			if (hashtable.find(ptr->data) != hashtable.end()) {
+				Node* ptrNext = ptr->next;
+				delete_node_next_to(prev);
+				ptr = ptrNext;
+			}
+			else {
+				hashtable.insert({ ptr->data, 1 });
+				prev = ptr;
+				ptr = ptr->next;
+			}
 		}
 	}
 };
