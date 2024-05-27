@@ -1228,6 +1228,282 @@ void test_remove_duplicates_2_duplicate_nodes_list() {
 	list.debug_verify_data_integrity();
 }
 
+void test_remove_last_occurance_normal_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+
+	list.remove_last_occurance(1);
+	string result = "2 3";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_last_occurance_normal_list_2() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(1);
+	list.insert_end(4);
+
+	list.remove_last_occurance(1);
+	string result = "1 2 3 4";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_last_occurance_last_node_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(1);
+
+	list.remove_last_occurance(1);
+	string result = "1 2 3 4";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_last_occurance_non_existing_key() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+
+	list.remove_last_occurance(7);
+	string result = "1 2 3 4";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_move_key_to_back_small_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(1);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+
+	list.move_key_to_back(1);
+	string result = "3 4 5 1 1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_move_key_to_back_mid_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(2);
+	list.insert_end(4);
+	list.insert_end(1);
+
+	list.move_key_to_back(1);
+	string result = "2 3 2 4 1 1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_move_key_to_back_long_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(4);
+	list.insert_end(1);
+	list.insert_end(7);
+	list.insert_end(1);
+	list.insert_end(8);
+	list.insert_end(1);
+	list.insert_end(1);
+
+	list.move_key_to_back(1);
+	string result = "2 3 2 4 7 8 1 1 1 1 1 1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_move_key_to_back_all_1_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(1);
+	list.insert_end(1);
+	list.insert_end(1);
+	list.insert_end(1);
+
+	list.move_key_to_back(1);
+	string result = "1 1 1 1 1";
+	string expected = list.debug_to_string();
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_max_value_normal_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+
+	int actual = list.max();
+	int expected = 5;
+
+	if (actual != expected) {
+		cout << "actual != expected: " << actual << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_max_value_single_node() {
+	LinkedList list;
+	list.insert_end(12);
+
+	int actual = list.max();
+	int expected = 12;
+
+	if (actual != expected) {
+		cout << "actual != expected: " << actual << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_max_value_large_values_list() {
+	LinkedList list;
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(45);
+	list.insert_end(2);
+	list.insert_end(1);
+
+	int actual = list.max();
+	int expected = 45;
+
+	if (actual != expected) {
+		cout << "actual != expected: " << actual << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_arrange_odd_and_even_positions_mid_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+
+	list.arrange_odd_and_even_positions();
+	string result = list.debug_to_string();
+	string expected = "1 3 2 4";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_arrange_odd_and_even_positions_small_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+
+	list.arrange_odd_and_even_positions();
+	string result = list.debug_to_string();
+	string expected = "1 3 2";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_arrange_odd_and_even_positions_long_list() {
+	LinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(6);
+	list.insert_end(7);
+
+	list.arrange_odd_and_even_positions();
+	string result = list.debug_to_string();
+	string expected = "1 3 6 2 4 7";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
 int main() {
 	/*test1();
 	test2();*/
@@ -1354,7 +1630,7 @@ int main() {
 	cout << "\nTest test_rotate_left_with_k_equals_4 Result: " << "\n";
 	test_rotate_left_with_k_equals_4();*/
 
-	cout << "\nTest test_remove_duplicates_with_normal_list Result: " << "\n";
+	/*cout << "\nTest test_remove_duplicates_with_normal_list Result: " << "\n";
 	test_remove_duplicates_with_normal_list();
 	cout << "\nTest test_remove_duplicates_with_repeated_values_list Result: " << "\n";
 	test_remove_duplicates_with_repeated_values_list();
@@ -1365,7 +1641,39 @@ int main() {
 	cout << "\nTest test_remove_duplicates_single_node_list Result: " << "\n";
 	test_remove_duplicates_single_node_list();
 	cout << "\nTest test_remove_duplicates_2_duplicate_nodes_list Result: " << "\n";
-	test_remove_duplicates_2_duplicate_nodes_list();
+	test_remove_duplicates_2_duplicate_nodes_list();*/
+
+	/*cout << "\nTest test_remove_last_occurance_normal_list Result: " << "\n";
+	test_remove_last_occurance_normal_list();
+	cout << "\nTest test_remove_last_occurance_last_node_list Result: " << "\n";
+	test_remove_last_occurance_last_node_list();
+	cout << "\nTest test_remove_last_occurance_non_existing_key Result: " << "\n";
+	test_remove_last_occurance_non_existing_key();
+	cout << "\nTest test_remove_last_occurance_normal_list_2 Result: " << "\n";
+	test_remove_last_occurance_normal_list_2();*/
+
+	/*cout << "\nTest test_move_key_to_back_small_list Result: " << "\n";
+	test_move_key_to_back_small_list();
+	cout << "\nTest test_move_key_to_back_mid_list Result: " << "\n";
+	test_move_key_to_back_mid_list();
+	cout << "\nTest test_move_key_to_back_long_list Result: " << "\n";
+	test_move_key_to_back_long_list();
+	cout << "\nTest test_move_key_to_back_all_1_list Result: " << "\n";
+	test_move_key_to_back_all_1_list();*/
+
+	/*cout << "\nTest test_max_value_normal_list Result: " << "\n";
+	test_max_value_normal_list();
+	cout << "\nTest test_max_value_single_node Result: " << "\n";
+	test_max_value_single_node();
+	cout << "\nTest test_max_value_large_values_list Result: " << "\n";
+	test_max_value_large_values_list();*/
+
+	cout << "\nTest test_arrange_odd_and_even_positions_mid_list Result: " << "\n";
+	test_arrange_odd_and_even_positions_mid_list();
+	cout << "\nTest test_arrange_odd_and_even_positions_small_list Result: " << "\n";
+	test_arrange_odd_and_even_positions_small_list();
+	cout << "\nTest test_arrange_odd_and_even_positions_long_list Result: " << "\n";
+	test_arrange_odd_and_even_positions_long_list();
 
 	// must see it, otherwise RTE
 	cout << "\n\nNO RTE\n";

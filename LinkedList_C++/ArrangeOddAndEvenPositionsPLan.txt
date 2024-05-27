@@ -1,0 +1,45 @@
+ArrangeOddAndEvenPositions():
+description: put nodes that have odd positions at the begining of the list.
+
+
+1.know whether the current position is odd or even
+2.if the current position is odd put it at the begining of the list
+
+
+tests:
+1.
+list = [1, 2, 3, 4]
+// list = [1, 3, 2, 4]
+
+2.
+list = [1, 2, 3]
+// list = [1, 3, 2]
+
+3.
+list = [1, 2, 3, 4, 6, 7]
+// list = [1, 3, 6, 2, 4, 7]
+
+
+steps:
+-index = 1
+-ptr = head, prev = null, last_inserted = null
+-while ptr:
+ -if index is odd:
+  -if ptr == head:
+   -last_inserted = head
+   -prev = ptr
+   -ptr = ptr->next
+  -else:
+   -lastInsertedNext = last_inserted->next
+   -temp = ptr
+   -ptr = ptr->next
+   -last_inserted->next = temp
+   -prev->next = ptr
+   -temp->next = lastInsertedNext
+   -last_inserted = temp
+   -if ptr == null:
+    -tail = prev
+ -else:
+  -prev = ptr
+  -ptr = ptr->next
+-index++

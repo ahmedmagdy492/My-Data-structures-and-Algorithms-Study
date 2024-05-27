@@ -546,4 +546,131 @@ public:
 			}
 		}
 	}
+
+	void delete_given_node(Node* node) {
+
+		if (head == nullptr) return;
+
+		if (node == head) {
+			delete_first();
+			return;
+		}
+
+		Node* ptr = head, *prev = nullptr;
+
+		while (ptr) {
+			if (ptr == node) {
+				delete_node_next_to(prev);
+				break;
+			}
+			prev = ptr;
+			ptr = ptr->next;
+		}
+	}
+
+	void remove_last_occurance(int key) {
+		Node* ptr = head, *prev = nullptr;
+		Node* lastOccurancePtr = nullptr;
+		bool is_found = false;
+
+		while(ptr) {
+			if (ptr->data == key) {
+				lastOccurancePtr = prev;
+				is_found = true;
+			}
+			prev = ptr;
+			ptr = ptr->next;
+		}
+
+		if (is_found) {
+			if (lastOccurancePtr != nullptr) {
+				delete_node_next_to(lastOccurancePtr);
+			}
+			else {
+				delete_first();
+			}
+		}
+	}
+
+	void move_key_to_back(int key) {
+		if (head == nullptr) return;
+		if (head->next == nullptr) return;
+
+		int counter = 0;
+		Node* ptr = head, * prev = nullptr, * temp = nullptr;
+
+		while (counter < length) {
+			if (ptr->data == key) {
+				temp = ptr;
+				ptr = ptr->next;
+				tail->next = temp;
+				temp->next = nullptr;
+				if (temp == head) {
+					head = ptr;
+				}
+				else {
+					prev->next = ptr;
+				}
+				tail = temp;
+			}
+			else {
+				prev = ptr;
+				ptr = ptr->next;
+			}
+			++counter;
+		}
+	}
+
+	int max() {
+		return max_value(head, INT_MIN);
+	}
+private:
+	int max_value(Node* ptr, int max) {
+		if (!ptr)
+			return max;
+
+		if (ptr->data > max)
+			max = ptr->data;
+
+		return max_value(ptr->next, max);
+	}
+
+public:
+	void arrange_odd_and_even_positions() {
+
+		if (head == nullptr) return;
+		if (head->next == nullptr) return;
+
+		int index = 1;
+
+		Node* ptr = head, * prev = nullptr, *last_inserted = nullptr;
+
+		while (ptr) {
+
+			if((index % 2) != 0) {
+				if (ptr == head) {
+					last_inserted = head;
+					prev = ptr;
+					ptr = ptr->next;
+				}
+				else {
+					Node* last_inserted_next = last_inserted->next;
+					Node* temp = ptr;
+					ptr = ptr->next;
+					last_inserted->next = temp;
+					prev->next = ptr;
+					temp->next = last_inserted_next;
+					last_inserted = temp;
+					if (ptr == nullptr)
+						tail = prev;
+				}
+			}
+			else {
+				prev = ptr;
+				ptr = ptr->next;
+			}
+
+			++index;
+		}
+	}
 };
