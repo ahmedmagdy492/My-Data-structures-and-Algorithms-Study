@@ -1504,6 +1504,248 @@ void test_arrange_odd_and_even_positions_long_list() {
 	list.debug_verify_data_integrity();
 }
 
+void test_arrange_odd_and_even_positions_long_list2() {
+	LinkedList list;
+	list.insert_end(11);
+	list.insert_end(33);
+	list.insert_end(55);
+	list.insert_end(4);
+	list.insert_end(50);
+	list.insert_end(17);
+	list.insert_end(8);
+
+	list.arrange_odd_and_even_positions();
+	string result = list.debug_to_string();
+	string expected = "11 55 50 8 33 4 17";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_insert_alternate_single_node_in_newlist() {
+	LinkedList list, newList;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+
+	newList.insert_end(4);
+
+	list.insert_alternate(&newList);
+	string result = list.debug_to_string();
+	string expected = "1 4 2 3";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_insert_alternate_newlist_larger_than_original_list() {
+	LinkedList list, newList;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+
+	newList.insert_end(4);
+	newList.insert_end(5);
+	newList.insert_end(6);
+	newList.insert_end(7);
+	newList.insert_end(8);
+
+	list.insert_alternate(&newList);
+	string result = list.debug_to_string();
+	string expected = "1 4 2 5 3 6 7 8";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_insert_alternate_empty_original_list() {
+	LinkedList list, newList;
+
+	newList.insert_end(4);
+	newList.insert_end(5);
+	newList.insert_end(6);
+	newList.insert_end(7);
+	newList.insert_end(8);
+
+	list.insert_alternate(&newList);
+	string result = list.debug_to_string();
+	string expected = "4 5 6 7 8";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_add_num_2_digit_lists() {
+	LinkedList list, list2;
+
+	// number 12
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+
+	// number 23
+	list2.insert_end(4);
+	list2.insert_end(5);
+	list2.insert_end(3);
+
+	list.add_number(&list2);
+	string result = list.debug_to_string();
+	string expected = "5 7 6";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+	list2.debug_verify_data_integrity();
+}
+
+void test_add_num_2_digit_and_2_digits_lists() {
+	LinkedList list, list2;
+
+	// number 70
+	list.insert_end(0);
+	list.insert_end(7);
+
+	// number 98
+	list2.insert_end(8);
+	list2.insert_end(9);
+
+	list.add_number(&list2);
+	string result = list.debug_to_string();
+	string expected = "8 6 1";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+	list2.debug_verify_data_integrity();
+}
+
+void test_add_num_2_digit_and_4_digits_lists() {
+	LinkedList list, list2;
+
+	// number 12
+	list.insert_end(2);
+	list.insert_end(1);
+
+	// number 150
+	list2.insert_end(0);
+	list2.insert_end(5);
+	list2.insert_end(1);
+
+	list.add_number(&list2);
+	string result = list.debug_to_string();
+	string expected = "2 6 1";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+	list2.debug_verify_data_integrity();
+}
+
+void test_add_num_long_lists() {
+	LinkedList list, list2;
+
+	list.insert_end(9);
+	list.insert_end(6);
+	list.insert_end(5);
+
+	// 98754678
+	list2.insert_end(8);
+	list2.insert_end(7);
+	list2.insert_end(6);
+	list2.insert_end(4);
+	list2.insert_end(5);
+	list2.insert_end(7);
+	list2.insert_end(8);
+	list2.insert_end(9);
+
+	list.add_number(&list2);
+	string result = list.debug_to_string();
+	string expected = "7 4 2 5 5 7 8 9";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+	list2.debug_verify_data_integrity();
+}
+
+void test_add_num_long_list_small_list() {
+	LinkedList list, list2;
+
+	// 98754678
+	list.insert_end(8);
+	list.insert_end(7);
+	list.insert_end(6);
+	list.insert_end(4);
+	list.insert_end(5);
+	list.insert_end(7);
+	list.insert_end(8);
+	list.insert_end(9);
+
+	list2.insert_end(9);
+	list2.insert_end(6);
+	list2.insert_end(5);
+
+	list.add_number(&list2);
+	string result = list.debug_to_string();
+	string expected = "7 4 2 5 5 7 8 9";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+	list2.debug_verify_data_integrity();
+}
+
 int main() {
 	/*test1();
 	test2();*/
@@ -1668,12 +1910,32 @@ int main() {
 	cout << "\nTest test_max_value_large_values_list Result: " << "\n";
 	test_max_value_large_values_list();*/
 
-	cout << "\nTest test_arrange_odd_and_even_positions_mid_list Result: " << "\n";
+	/*cout << "\nTest test_arrange_odd_and_even_positions_mid_list Result: " << "\n";
 	test_arrange_odd_and_even_positions_mid_list();
 	cout << "\nTest test_arrange_odd_and_even_positions_small_list Result: " << "\n";
 	test_arrange_odd_and_even_positions_small_list();
 	cout << "\nTest test_arrange_odd_and_even_positions_long_list Result: " << "\n";
 	test_arrange_odd_and_even_positions_long_list();
+	cout << "\nTest test_arrange_odd_and_even_positions_long_list2 Result: " << "\n";
+	test_arrange_odd_and_even_positions_long_list2();*/
+
+	/*cout << "\nTest test_insert_alternate_single_node_in_newlist Result: " << "\n";
+	test_insert_alternate_single_node_in_newlist();
+	cout << "\nTest test_insert_alternate_newlist_larger_than_original_list Result: " << "\n";
+	test_insert_alternate_newlist_larger_than_original_list();
+	cout << "\nTest test_insert_alternate_empty_original_list Result: " << "\n";
+	test_insert_alternate_empty_original_list();*/
+
+	cout << "\nTest test_add_num_2_digit_lists Result: " << "\n";
+	test_add_num_2_digit_lists();
+	cout << "\nTest test_add_num_2_digit_and_3_digits_lists Result: " << "\n";
+	test_add_num_2_digit_and_2_digits_lists();
+	cout << "\nTest test_add_num_2_digit_and_4_digits_lists Result: " << "\n";
+	test_add_num_2_digit_and_4_digits_lists();
+	cout << "\nTest test_add_num_long_lists Result: " << "\n";
+	test_add_num_long_lists();
+	cout << "\nTest test_add_num_long_list_small_list Result: " << "\n";
+	test_add_num_long_list_small_list();
 
 	// must see it, otherwise RTE
 	cout << "\n\nNO RTE\n";

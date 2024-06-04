@@ -1,0 +1,41 @@
+InsertAlternate():
+description: given a new linked list insert its nodes as follows the first new node after the first node in the original list and the second new node after the original second node etc...
+input: list -> linked list to be inserted
+
+tests:
+1.
+list = [1, 2, 3], newList = [4]
+// list = [1, 4, 2, 3]
+
+2.
+list = [1, 2, 3], newList = [4, 5, 6, 7, 8]
+// list = [1, 4, 2, 5, 3, 6, 7, 8]
+
+3.
+list = [], newList = [1, 2, 3]
+// list = [1, 2, 3]
+
+
+steps:
+-list1ptr = head // list1 head
+-list2ptr = newList->head
+-if list1ptr == nullptr and list2ptr == null:
+ -return
+-if list1ptr == null and list2ptr != null:
+ -head = list2.head
+ -tail = list2.tail
+ -return
+-while list1ptr and list2ptr:
+ -temp1 = list1ptr
+ -list1ptr = list1ptr->next
+ -temp2 = list2ptr
+ -list2ptr = list2ptr->next
+ -temp1->next = temp2
+ -temp2->next = list1ptr
+ -if temp1 == tail:
+  -tail = temp2
+-if list2ptr != null:
+ -tail->next = list2ptr
+ -tail = list2->tail
+-list2->head = list2->tail = nullptr;
+-len = calcLen()

@@ -673,4 +673,112 @@ public:
 			++index;
 		}
 	}
+
+	int calculate_len(Node* listHead) {
+		Node* ptr = listHead;
+		int counter = 0;
+
+		while (ptr != nullptr) {
+			++counter;
+			ptr = ptr->next;
+		}
+
+		return counter;
+	}
+
+	void insert_alternate(LinkedList* list2) {
+		Node* list1ptr = head, * list2ptr = (Node*)list2->head;
+
+		if (list1ptr == nullptr && list2ptr == nullptr)
+			return;
+
+		if (list1ptr == nullptr && list2ptr != nullptr) {
+			head = list2->head;
+			tail = list2->tail;
+			list2->head = list2->tail = nullptr;
+
+			// for debuging only
+			Node* ptr = head;
+			while (ptr) {
+				add_node(ptr);
+				ptr = ptr->next;
+			}
+			return;
+		}
+
+		while (list1ptr && list2ptr) {
+			Node* temp1 = list1ptr;
+			list1ptr = list1ptr->next;
+			Node* temp2 = list2ptr;
+			list2ptr = list2ptr->next;
+			temp1->next = temp2;
+			temp2->next = list1ptr;
+			add_node(temp2);
+			if (temp1 == tail)
+				tail = temp2;
+		}
+
+		if (list2ptr != nullptr) {
+			// for debuging only
+			Node* ptr = list2ptr;
+			while (ptr) {
+				add_node(ptr);
+				ptr = ptr->next;
+			}
+
+			tail->next = list2ptr;
+			tail = list2->tail;
+		}
+
+		list2->head = list2->tail = nullptr;
+	}
+
+	// let n = length of original list
+	// let m = length of new list
+	// Time:  O(min(n, m) + (m - n))
+	// Space: O(m-n)
+	void add_number(LinkedList* another) {
+		assert(head != nullptr);
+		assert(another->head != nullptr);
+
+		int carry = 0, result = 0;
+		Node* ptr = head, * ptr2 = another->head;
+		bool isCarryFlagSet = false;
+
+		while (ptr && ptr2) {
+			result = ptr->data + ptr2->data;
+			ptr->data = (result % 10) + carry;
+			carry = 0;
+			isCarryFlagSet = false;
+
+			if (result >= 10) {
+				carry = result / 10;
+				isCarryFlagSet = true;
+			}
+			ptr = ptr->next;
+			ptr2 = ptr2->next;
+		}
+
+		if (ptr != nullptr) {
+			if (isCarryFlagSet) {
+				isCarryFlagSet = false;
+				ptr->data += carry;
+			}
+		}
+
+		if (ptr2 != nullptr) {
+			while (ptr2) {
+				if (isCarryFlagSet) {
+					isCarryFlagSet = false;
+					ptr2->data += carry;
+				}
+				insert_end(ptr2->data);
+				ptr2 = ptr2->next;
+			}
+		}
+
+		if (isCarryFlagSet) {
+			insert_end(carry);
+		}
+	}
 };
