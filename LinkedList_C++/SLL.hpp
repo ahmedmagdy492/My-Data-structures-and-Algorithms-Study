@@ -189,7 +189,7 @@ public:
 
 		int forward_distance = length - index;
 		Node* ptr = head;
-		
+
 		while (ptr && forward_distance > 0) {
 			--forward_distance;
 			ptr = ptr->next;
@@ -205,7 +205,7 @@ public:
 		if (head == nullptr && list.head == 0)
 			return true;
 
-		Node* ptr1 = head, *ptr2 = list.head;
+		Node* ptr1 = head, * ptr2 = list.head;
 
 		while (ptr1 && ptr2) {
 			if (ptr1->data != ptr2->data) {
@@ -215,7 +215,7 @@ public:
 			ptr2 = ptr2->next;
 		}
 
-		if(!ptr1 && !ptr2)
+		if (!ptr1 && !ptr2)
 			return true;
 
 		return false;
@@ -337,7 +337,7 @@ public:
 		if (head == nullptr || head == tail)
 			return;
 
-		Node* cur = head, *next = head->next;
+		Node* cur = head, * next = head->next;
 
 		while (cur != nullptr && next != nullptr) {
 			int temp = cur->data;
@@ -373,7 +373,7 @@ public:
 
 	void reverse() { // O(n^2)
 		int counter = length - 1;
-		Node* first = head, *last = get_nth_node(counter);
+		Node* first = head, * last = get_nth_node(counter);
 
 		while (first != last) {
 			int temp = first->data;
@@ -430,7 +430,7 @@ public:
 
 	void delete_even_positions_internal(Node* ptr, int counter) {
 		if (ptr != nullptr) {
-			delete_even_positions_internal(ptr->next, counter+1);
+			delete_even_positions_internal(ptr->next, counter + 1);
 			if ((counter % 2) != 0) {
 				delete_node_next_to(ptr);
 			}
@@ -556,7 +556,7 @@ public:
 			return;
 		}
 
-		Node* ptr = head, *prev = nullptr;
+		Node* ptr = head, * prev = nullptr;
 
 		while (ptr) {
 			if (ptr == node) {
@@ -569,11 +569,11 @@ public:
 	}
 
 	void remove_last_occurance(int key) {
-		Node* ptr = head, *prev = nullptr;
+		Node* ptr = head, * prev = nullptr;
 		Node* lastOccurancePtr = nullptr;
 		bool is_found = false;
 
-		while(ptr) {
+		while (ptr) {
 			if (ptr->data == key) {
 				lastOccurancePtr = prev;
 				is_found = true;
@@ -643,11 +643,11 @@ public:
 
 		int index = 1;
 
-		Node* ptr = head, * prev = nullptr, *last_inserted = nullptr;
+		Node* ptr = head, * prev = nullptr, * last_inserted = nullptr;
 
 		while (ptr) {
 
-			if((index % 2) != 0) {
+			if ((index % 2) != 0) {
 				if (ptr == head) {
 					last_inserted = head;
 					prev = ptr;
@@ -779,6 +779,136 @@ public:
 
 		if (isCarryFlagSet) {
 			insert_end(carry);
+		}
+	}
+
+	void remove_duplicate() {
+		std::unordered_map<int, Node*> hashtable;
+
+		Node* ptr = head;
+
+		while (ptr) {
+			auto it = hashtable.find(ptr->data);
+			if (it != hashtable.end()) {
+				Node* temp = ptr;
+				ptr = ptr->next;
+				delete_given_node(temp);
+				delete_given_node(it->second);
+			}
+			else {
+				hashtable.insert({ ptr->data, ptr });
+				ptr = ptr->next;
+			}
+		}
+	}
+
+	void remove_duplicate_bf() {
+		assert(head != nullptr);
+
+		Node* ptr1 = head, * ptr2 = head->next;
+		std::vector<Node*> nodes_to_delete;
+
+		while (ptr1) {
+			ptr2 = ptr1->next;
+			while (ptr2) {
+				if (ptr2->data == ptr1->data) {
+					nodes_to_delete.push_back(ptr1);
+					nodes_to_delete.push_back(ptr2);
+				}
+				ptr2 = ptr2->next;
+			}
+			ptr1 = ptr1->next;
+		}
+
+		for (auto& node : nodes_to_delete) {
+			delete_given_node(node);
+		}
+	}
+
+	Node* get_node_prev_to(Node* node) {
+		Node* ptr = head;
+
+		while (ptr) {
+			if (ptr->next == node) {
+				return ptr;
+			}
+			ptr = ptr->next;
+		}
+
+		return nullptr;
+	}
+
+	void reverse_from_to(Node* start, int to) {
+		if (start == nullptr) return;
+
+		Node* prev = nullptr, * cur = start, * next = cur->next;
+
+		if (length == to) {
+			reverse_sl();
+			return;
+		}
+
+		int counter = 0;
+
+		if (cur == head) {
+			while (cur && counter < to) {
+				if (cur == head) {
+					prev = cur;
+					cur = cur->next;
+					if (cur == nullptr)
+						break;
+					next = cur->next;
+				}
+				else {
+					cur->next = head;
+					head = cur;
+					prev->next = next;
+					cur = next;
+					if (cur == nullptr)
+						break;
+					next = cur->next;
+				}
+				++counter;
+			}
+			tail = prev;
+		}
+		else {
+			Node* node = get_node_prev_to(cur);
+			node->next = nullptr;
+
+			while (cur && counter < to) {
+				if (cur == start) {
+					prev = cur;
+					cur = cur->next;
+					if (cur == nullptr)
+						break;
+					next = cur->next;
+				}
+				else {
+					cur->next = start;
+					start = cur;
+					prev->next = next;
+					cur = next;
+					if (cur == nullptr)
+						break;
+					next = cur->next;
+				}
+				++counter;
+			}
+			tail = prev;
+			node->next = start;
+		}
+	}
+
+	void reverse_chains(int k) {
+		assert(k != 0);
+		int start = 0;
+
+		while (start < length) {
+			Node* node = get_nth_node(start);
+
+			reverse_from_to(node, k);
+			start += k;
 		}
 	}
 };

@@ -1746,6 +1746,213 @@ void test_add_num_long_list_small_list() {
 	list2.debug_verify_data_integrity();
 }
 
+void test_remove_duplicate_many_repeated_values() {
+	LinkedList list;
+
+	list.insert_end(1);
+	list.insert_end(1);
+	list.insert_end(5);
+	list.insert_end(2);
+	list.insert_end(2);
+	list.insert_end(2);
+	list.insert_end(3);
+
+	list.remove_duplicate_bf();
+	string result = list.debug_to_string();
+	string expected = "5 3";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicate_2_nodes_list() {
+	LinkedList list;
+
+	list.insert_end(1);
+	list.insert_end(1);
+
+	list.remove_duplicate_bf();
+	string result = list.debug_to_string();
+	string expected = "";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicate_all_nodes_are_duplicates() {
+	LinkedList list;
+
+	list.insert_end(1);
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(2);
+	list.insert_end(2);
+
+	list.remove_duplicate_bf();
+	string result = list.debug_to_string();
+	string expected = "";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicate_all_nodes_are_duplicates_except_one() {
+	LinkedList list;
+
+	list.insert_end(1);
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(2);
+	list.insert_end(2);
+	list.insert_end(5);
+
+	list.remove_duplicate_bf();
+	string result = list.debug_to_string();
+	string expected = "5";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_remove_duplicate_all_nodes_are_duplicates_except_2() {
+	LinkedList list;
+
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(2);
+	list.insert_end(2);
+	list.insert_end(3);
+
+	list.remove_duplicate_bf();
+	string result = list.debug_to_string();
+	string expected = "1 3";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_reverse_chains_normal_reverse() {
+	LinkedList list;
+
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+	list.insert_end(6);
+
+	int k = 6;
+	list.reverse_chains(k);
+	string result = list.debug_to_string();
+	string expected = "6 5 4 3 2 1";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_reverse_chains_k_equals_3() {
+	LinkedList list;
+
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+	list.insert_end(6);
+
+	int k = 3;
+	list.reverse_chains(k);
+	string result = list.debug_to_string();
+	string expected = "3 2 1 6 5 4";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_reverse_chains_k_equals_2() {
+	LinkedList list;
+
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+	list.insert_end(6);
+	list.insert_end(7);
+
+	int k = 2;
+	list.reverse_chains(k);
+	string result = list.debug_to_string();
+	string expected = "2 1 4 3 6 5 7";
+
+	if (result != expected) {
+		cout << "result != expected: " << result << " != " << expected << "\n";
+		assert(false);
+	}
+	else {
+		cout << "result: " << result << "\n";
+		cout << "expected: " << expected << "\n";
+	}
+
+	list.debug_verify_data_integrity();
+}
+
 int main() {
 	/*test1();
 	test2();*/
@@ -1926,7 +2133,7 @@ int main() {
 	cout << "\nTest test_insert_alternate_empty_original_list Result: " << "\n";
 	test_insert_alternate_empty_original_list();*/
 
-	cout << "\nTest test_add_num_2_digit_lists Result: " << "\n";
+	/*cout << "\nTest test_add_num_2_digit_lists Result: " << "\n";
 	test_add_num_2_digit_lists();
 	cout << "\nTest test_add_num_2_digit_and_3_digits_lists Result: " << "\n";
 	test_add_num_2_digit_and_2_digits_lists();
@@ -1935,7 +2142,25 @@ int main() {
 	cout << "\nTest test_add_num_long_lists Result: " << "\n";
 	test_add_num_long_lists();
 	cout << "\nTest test_add_num_long_list_small_list Result: " << "\n";
-	test_add_num_long_list_small_list();
+	test_add_num_long_list_small_list();*/
+
+	/*cout << "\nTest test_remove_duplicate_many_repeated_values Result: " << "\n";
+	test_remove_duplicate_many_repeated_values();
+	cout << "\nTest test_remove_duplicate_2_nodes_list Result: " << "\n";
+	test_remove_duplicate_2_nodes_list();
+	cout << "\nTest test_remove_duplicate_all_nodes_are_duplicates Result: " << "\n";
+	test_remove_duplicate_all_nodes_are_duplicates();
+	cout << "\nTest test_remove_duplicate_all_nodes_are_duplicates_except_one Result: " << "\n";
+	test_remove_duplicate_all_nodes_are_duplicates_except_one();
+	cout << "\nTest test_remove_duplicate_all_nodes_are_duplicates_except_2 Result: " << "\n";
+	test_remove_duplicate_all_nodes_are_duplicates_except_2();*/
+
+	cout << "\nTest test_reverse_from_to Result: " << "\n";
+	test_reverse_chains_normal_reverse();
+	cout << "\nTest test_reverse_from_to_k_equals_3 Result: " << "\n";
+	test_reverse_chains_k_equals_3();
+	cout << "\nTest test_reverse_chains_k_equals_2 Result: " << "\n";
+	test_reverse_chains_k_equals_2();
 
 	// must see it, otherwise RTE
 	cout << "\n\nNO RTE\n";
