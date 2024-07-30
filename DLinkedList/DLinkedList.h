@@ -350,4 +350,114 @@ public:
 
 		return true;
 	}
+
+	Node* middle_node() {
+		assert(head);
+
+		Node* ptr1 = head, * ptr2 = tail;
+
+		while (ptr1 != ptr2 && ptr1->next != ptr2) {
+			ptr1 = ptr1->next;
+			ptr2 = ptr2->prev;
+		}
+
+		return ptr2;
+	}
+
+	Node* middle_node_sl() {
+		assert(head);
+
+		Node* slow = head, * fast = head;
+		while (fast && fast->next) {
+			slow = slow->next;
+			fast = fast->next->next;
+		}
+
+		return slow;
+	}
+
+	void swap_nodes(Node* start, Node* end) {
+		Node* endPrev = end->prev;
+		Node* endNext = end->next;
+		if (start->next != end) {
+			if (start != head) {
+				start->prev->next = end;
+			}
+			else {
+				head = end;
+			}
+			start->next->prev = end;
+			end->prev = start->prev;
+			end->next = start->next;
+			endPrev->next = start;
+			if (endNext) {
+				endNext->prev = start;
+			}
+			else {
+				tail = start;
+			}
+			start->next = endNext;
+			start->prev = endPrev;
+		}
+		else {
+			if (start == head && end == tail) {
+				start->prev = end;
+				end->next = start;
+				start->next = nullptr;
+				end->prev = nullptr;
+				Node* temp = head;
+				head = tail;
+				tail = temp;
+				return;
+			}
+
+			Node* startPrev = start->prev;
+			startPrev->next = end;
+			end->prev = start->prev;
+			end->next = start;
+			start->prev = end;
+			start->next = endNext;
+			endNext->prev = start;
+		}
+	}
+
+	void swap_forward_with_backward(int k) {
+		if (!head)
+			return;
+
+		if (k > length)
+			return;
+
+		Node* start = head, *end = tail;
+		int counter = 1;
+
+		while (counter < k) {
+			start = start->next;
+			end = end->prev;
+			++counter;
+		}
+
+		if (start != end) {
+			swap_nodes(start, end);
+		}
+	}
+
+	void reverse_list() {
+		if (head == nullptr || head->next == nullptr)
+			return;
+
+		Node* start = head, * end = tail;
+
+		while (start != end && start->next != end) {
+			Node* startTemp = start;
+			start = start->next;
+			Node* endTemp = end;
+			end = end->prev;
+			swap_nodes(startTemp, endTemp);
+		}
+
+		if (start->next == end) {
+			swap_nodes(start, end);
+		}
+	}
 };

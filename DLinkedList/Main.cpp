@@ -639,6 +639,222 @@ void test_is_palindrome_with_non_palindromed_list() {
 	list.debug_verify_data_integrity();
 }
 
+void test_middle_node_with_odd_len_list() {
+
+	DLinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+
+	int actual = list.middle_node_sl()->data;
+	int expected = 3;
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_middle_node_with_even_len_list() {
+
+	DLinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+	list.insert_end(6);
+
+	int actual = list.middle_node_sl()->data;
+	int expected = 4;
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_middle_node_with_single_node() {
+
+	DLinkedList list;
+	list.insert_end(2);
+
+	int actual = list.middle_node_sl()->data;
+	int expected = 2;
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_swap_forward_with_backward_normal_list_k_is_1() {
+
+	DLinkedList list;
+	list.insert_end(6);
+	list.insert_end(10);
+	list.insert_end(8);
+	list.insert_end(15);
+	list.swap_forward_with_backward(1);
+
+	std::string actual = list.debug_to_string();
+	std::string expected = "15 10 8 6";
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_swap_forward_with_backward_normal_list_k_is_2() {
+
+	DLinkedList list;
+	list.insert_end(6);
+	list.insert_end(10);
+	list.insert_end(40);
+	list.insert_end(8);
+	list.insert_end(15);
+	list.swap_forward_with_backward(2);
+
+	std::string actual = list.debug_to_string();
+	std::string expected = "6 8 40 10 15";
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_swap_forward_with_backward_even_len_list_k_is_2() {
+
+	DLinkedList list;
+	list.insert_end(6);
+	list.insert_end(10);
+	list.insert_end(8);
+	list.insert_end(15);
+	list.swap_forward_with_backward(2);
+
+	std::string actual = list.debug_to_string();
+	std::string expected = "6 8 10 15";
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_swap_forward_with_backward_odd_list_k_in_the_middle() {
+
+	DLinkedList list;
+	list.insert_end(6);
+	list.insert_end(10);
+	list.insert_end(40);
+	list.insert_end(8);
+	list.insert_end(15);
+	list.swap_forward_with_backward(3);
+
+	std::string actual = list.debug_to_string();
+	std::string expected = "6 10 40 8 15";
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_swap_forward_with_backward_odd_list_k_is_4() {
+
+	DLinkedList list;
+	list.insert_end(6);
+	list.insert_end(10);
+	list.insert_end(40);
+	list.insert_end(8);
+	list.insert_end(15);
+	list.swap_forward_with_backward(4);
+
+	std::string actual = list.debug_to_string();
+	std::string expected = "6 8 40 10 15";
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_reverse_list_with_odd_len_list() {
+
+	DLinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.insert_end(3);
+	list.insert_end(4);
+	list.insert_end(5);
+	list.reverse_list();
+
+	std::string actual = list.debug_to_string();
+	std::string expected = "5 4 3 2 1";
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_reverse_list_with_even_len_list() {
+
+	DLinkedList list;
+	list.insert_end(1);
+	list.insert_end(2);
+	list.reverse_list();
+
+	std::string actual = list.debug_to_string();
+	std::string expected = "2 1";
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
+void test_reverse_list_with_single_node() {
+
+	DLinkedList list;
+	list.insert_end(1);
+	list.reverse_list();
+
+	std::string actual = list.debug_to_string();
+	std::string expected = "1";
+
+	if (actual != expected) {
+		std::cout << "actual: " << actual << " ,expected: " << expected << std::endl;
+		assert(actual == expected);
+	}
+
+	list.debug_verify_data_integrity();
+}
+
 int main() {
 	/*std::cout << "test_insert_end_with_empty_list: " << std::endl;
 	test_insert_end_with_empty_list();
@@ -712,12 +928,37 @@ int main() {
 	std::cout << "test_delete_odd_positions_with_single_node: " << std::endl;
 	test_delete_odd_positions_with_single_node();*/
 
-	std::cout << "test_is_palindrome_single_node: " << std::endl;
+	/*std::cout << "test_is_palindrome_single_node: " << std::endl;
 	test_is_palindrome_single_node();
 	std::cout << "test_is_palindrome_with_palindromed_list: " << std::endl;
 	test_is_palindrome_with_palindromed_list();
 	std::cout << "test_is_palindrome_with_non_palindromed_list: " << std::endl;
-	test_is_palindrome_with_non_palindromed_list();
+	test_is_palindrome_with_non_palindromed_list();*/
+
+	/*std::cout << "test_middle_node_with_odd_len_list: " << std::endl;
+	test_middle_node_with_odd_len_list();
+	std::cout << "test_middle_node_with_even_len_list: " << std::endl;
+	test_middle_node_with_even_len_list();
+	std::cout << "test_middle_node_with_single_node: " << std::endl;
+	test_middle_node_with_single_node();*/
+
+	std::cout << "test_swap_forward_with_backward_normal_list_k_is_1: " << std::endl;
+	test_swap_forward_with_backward_normal_list_k_is_1();
+	std::cout << "test_swap_forward_with_backward_normal_list_k_is_2: " << std::endl;
+	test_swap_forward_with_backward_normal_list_k_is_2();
+	std::cout << "test_swap_forward_with_backward_even_len_list_k_is_2: " << std::endl;
+	test_swap_forward_with_backward_even_len_list_k_is_2();
+	std::cout << "test_swap_forward_with_backward_odd_list_k_in_the_middle: " << std::endl;
+	test_swap_forward_with_backward_odd_list_k_in_the_middle();
+	std::cout << "test_swap_forward_with_backward_odd_list_k_is_4: " << std::endl;
+	test_swap_forward_with_backward_odd_list_k_is_4();
+
+	std::cout << "test_reverse_list_with_odd_len_list: " << std::endl;
+	test_reverse_list_with_odd_len_list();
+	std::cout << "test_reverse_list_with_even_len_list: " << std::endl;
+	test_reverse_list_with_even_len_list();
+	std::cout << "test_reverse_list_with_single_node: " << std::endl;
+	test_reverse_list_with_single_node();
 
 	std::cout << "No RTE" << std::endl;
 
