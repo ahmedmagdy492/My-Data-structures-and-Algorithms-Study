@@ -460,4 +460,86 @@ public:
 			swap_nodes(start, end);
 		}
 	}
+
+	void inject_end(Node* new_node) {
+		if (!head) {
+			head = tail = new_node;
+		}
+		else {
+			link(tail, new_node);
+			tail = new_node;
+		}
+		add_node(new_node);
+	}
+
+	void inject_front(Node* new_node) {
+		add_node(new_node);
+
+		if (!head) {
+			head = tail = new_node;
+		}
+		else {
+			link(new_node, head);
+			head = new_node;
+		}
+	}
+
+	void inject_node_sorted(Node* newNode) {
+		assert(head != nullptr);
+
+		if (newNode->data <= head->data) {
+			inject_front(newNode);
+			return;
+		}
+		if (newNode->data >= tail->data) {
+			inject_end(newNode);
+			return;
+		}
+
+		Node* ptr = head;
+		while (ptr) {
+			if (ptr->data >= newNode->data) {
+				ptr->prev->next = newNode;
+				newNode->prev = ptr->prev;
+				newNode->next = ptr;
+				ptr->prev = newNode;
+				add_node(newNode);
+				break;
+			}
+			ptr = ptr->next;
+		}
+	}
+
+	void merge_lists_sorted(DLinkedList& newList) {
+		if (!head) {
+			head = newList.head;
+			tail = newList.tail;
+			Node* ptr = head;
+			while (ptr) {
+				add_node(ptr);
+				ptr = ptr->next;
+			}
+			return;
+		}
+
+		if (!newList.head) {
+			return;
+		}
+
+		Node* ptr1 = head, *ptr2 = newList.head;
+		while (ptr1 && ptr2) {
+			ptr1 = ptr1->next;
+			Node* temp = ptr2;
+			ptr2 = ptr2->next;
+			inject_node_sorted(temp);
+		}
+
+		if (ptr2) {
+			while (ptr2) {
+				Node* temp = ptr2;
+				ptr2 = ptr2->next;
+				inject_node_sorted(temp);
+			}
+		}
+	}
 };
