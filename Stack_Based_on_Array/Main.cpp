@@ -5,6 +5,8 @@
 #include "Stack.h"
 
 #include <stack>
+#include <queue>
+#include <vector>
 
 std::string reverse_subwords(std::string line) {
 	Stack stack(line.length());
@@ -195,6 +197,154 @@ std::string remove_adj_substrings(const std::string& str) {
 	return out;
 }
 
+
+bool areGoingToCollide(int left, int right) {
+	return left > 0 && right < 0;
+}
+
+std::vector<int> asteroidCollision(std::vector<int>& asteroids) {
+	std::stack<int> stack;
+
+	for (int i = 0; i < asteroids.size(); ++i) {
+		if (stack.empty()) {
+			stack.push(asteroids[i]);
+		}
+		else {
+			int stackTop = stack.top();
+			if (areGoingToCollide(stackTop, asteroids[i])) {
+				if (abs(stackTop) < abs(asteroids[i])) {
+					stack.pop();
+
+					if (stack.empty()) {
+						stack.push(asteroids[i]);
+					}
+					else {
+						while (!stack.empty()) {
+							stackTop = stack.top();
+							if (areGoingToCollide(stackTop, asteroids[i])) {
+								if (abs(stackTop) < abs(asteroids[i])) {
+									stack.pop();
+									if (stack.empty()) {
+										stack.push(asteroids[i]);
+										break;
+									}
+								}
+								else if (abs(stackTop) == abs(asteroids[i])) {
+									stack.pop();
+									break;
+								}
+								else {
+									break;
+								}
+							}
+							else {
+								stack.push(asteroids[i]);
+								break;
+							}
+						}
+					}
+				}
+				else if(abs(stackTop) == abs(asteroids[i])) {
+					stack.pop();
+				}
+			}
+			else {
+				stack.push(asteroids[i]);
+			}
+		}
+	}
+
+	std::vector<int> out(stack.size());
+	int counter = stack.size() - 1;
+
+	while (!stack.empty()) {
+		out[counter--] = stack.top();
+		stack.pop();
+	}
+
+	return out;
+}
+
+int parenthises_score(std::string& str) {
+	if (str == "")
+		return 0;
+
+	Stack stack(str.length());
+
+	for (int i = 0; i < str.length(); ++i) {
+		if (str[i] == '(') {
+			stack.push(0);
+		}
+		else {
+			int popped_value = stack.pop();
+
+			if (popped_value == 0)
+				popped_value = 1;
+			else
+				popped_value *= 2;
+
+			if (!stack.is_empty()) {
+				int parent_score = stack.pop() + popped_value;
+				stack.push(parent_score);
+			}
+			else {
+				stack.push(popped_value);
+			}
+		}
+	}
+
+	return stack.pop();
+}
+
+std::vector<int> nextGreaterElements(std::vector<int>& nums) {
+	std::stack<std::pair<int, int>> stack;
+
+	for (int i = 0; i < nums.size(); ++i) {
+		if (stack.empty()) {
+			stack.push(std::pair<int, int>(i, nums[i]));
+		}
+		else {
+			if (nums[i] > stack.top().second) {
+				while (!stack.empty() && stack.top().second < nums[i]) {
+					int index = stack.top().first;
+					stack.pop();
+					nums[index] = nums[i];
+				}
+				stack.push(std::pair<int, int>(i, nums[i]));
+			}
+			else {
+				stack.push(std::pair<int, int>(i, nums[i]));
+			}
+		}
+	}
+
+	while (!stack.empty()) {
+		int index = stack.top().first;
+		stack.pop();
+		nums[index] = -1;
+	}
+
+	return nums;
+}
+
+void next_higher_value_test1() {
+	std::vector<int> arr = { 10, 5, 7, 15, 11 };
+	std::vector<int> list = nextGreaterElements(arr);
+
+	for (int num : list) {
+		std::cout << num << std::endl;
+	}
+}
+
+void next_higher_value_test2() {
+	std::vector<int> arr = { 8, 73, 74, 75, 71, 69, 72, 76, 73 };
+	std::vector<int> list = nextGreaterElements(arr);
+
+	for (int num : list) {
+		std::cout << num << std::endl;
+	}
+}
+
 int main() {
 	//// valid test cases
 	//test_is_brackets_valid_2_parenth();
@@ -208,11 +358,55 @@ int main() {
 	//test_is_brackets_extra_bracket();
 	//test_is_too_many_extra_brackets();
 
-	std::string input = "abbaca";
+	/*std::string input = "abbaca";
 	std::string output = remove_adj_substrings(input);
 	std::cout << output << "\n";
 
 	std::string input2 = "abbaccaa";
 	std::string output2 = remove_adj_substrings(input2);
-	std::cout << output2 << "\n";
+	std::cout << output2 << "\n";*/
+
+	/*std::vector<int> astroids;
+	astroids.push_back(-2);
+	astroids.push_back(-1);
+	astroids.push_back(1);
+	astroids.push_back(2);
+	std::vector<int> result = asteroidCollision(astroids);*/
+
+	/*Stack stack(10);
+
+	stack.push(12);
+	stack.push(44);
+	stack.push(55);
+	stack.push(99);
+
+	std::cout << "Before Reverse\n";
+	stack.display();
+	std::cout << "==============\n";
+
+	stack.reverse();
+
+	std::cout << "After Reverse\n\n";
+
+	stack.display();*/
+
+	/*std::string input1 = "()";
+	std::cout << parenthises_score(input1) << "\n";
+
+	std::string input2 = "(())";
+	std::cout << parenthises_score(input2) << "\n";
+
+	std::string input3 = "()()";
+	std::cout << parenthises_score(input3) << "\n";
+
+	std::string input4 = "(()())";
+	std::cout << parenthises_score(input4) << "\n";
+
+	std::string input5 = "(()(()))";
+	std::cout << parenthises_score(input5) << "\n";*/
+
+	/*std::string input6 = "()((())())";
+	std::cout << parenthises_score(input6) << "\n";*/
+
+	next_higher_value_test2();
 }

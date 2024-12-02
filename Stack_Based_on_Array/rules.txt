@@ -1,0 +1,29 @@
+rules:
+stack top = ) and current char = ( -> score + 1
+stack top = ( and current char = ) -> score + 1
+stack top = ( and current char = ( -> score * 2
+
+steps:
+-if str is empty:
+ -return 0
+-score = 1
+-stack create of str len
+-stack2 create of str len
+-for char in str:
+ -if stack top is ( and char is (:
+  -stack2 push *
+ -else if stack top is ) and char is (:
+  -stack2 push +
+ -else if stack top is ( and char is ):
+  -stack2 push +
+ -stack push char
+-while stack2 is not empty:
+ -popped value = stack2 pop
+ -if popped value is *:
+  -if score == 0:
+   -score = 2
+  -else:
+   -score *= 2
+ -else if popped value is +:
+  -score += 1
+-return score

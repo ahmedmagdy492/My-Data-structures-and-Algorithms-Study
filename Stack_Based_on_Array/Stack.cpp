@@ -47,6 +47,34 @@ void Stack::display() {
 	std::cout << "\n";
 }
 
+void Stack::shift_right(int arr[], int len) {
+	if (len >= 1) {
+		arr[len] = arr[len - 1];
+		shift_right(arr, --len);
+	}
+}
+
+void Stack::insert_at_bottom(int x) {
+	if (is_empty()) {
+		push(x);
+	}
+	else {
+		int cur = pop();
+
+		insert_at_bottom(x);
+
+		push(cur);
+	}
+}
+
+void Stack::reverse() {
+	if (!is_empty()) {
+		int cur = pop();
+		reverse();
+		insert_at_bottom(cur);
+	}
+}
+
 Stack::~Stack() {
 	if (arr)
 		delete arr;

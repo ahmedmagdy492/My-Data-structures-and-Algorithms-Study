@@ -1,0 +1,21 @@
+videos = document.querySelectorAll('video');
+[...videos].forEach(v => {
+	if(!v.src.startsWith('blob:')) {
+		let a = document.createElement('a');
+		a.href = v.src;
+		a.innerHTML = "Download this Video";
+		a.download = v.src;
+		a.style.background = 'black'
+		a.style.color = 'white';
+		a.style.padding = "15px";
+		a.style.position = 'absolute';
+		a.style.zIndex = '10000';
+		a.style.borderRadius = '10px';
+		if(v.parentElement) {
+			v.parentElement.appendChild(a);
+		}
+		else {
+			v.appendChild(a);
+		}
+	}
+});

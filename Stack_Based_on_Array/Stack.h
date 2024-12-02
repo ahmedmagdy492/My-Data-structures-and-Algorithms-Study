@@ -19,6 +19,9 @@ public:
 	bool is_full();
 	void clear();
 	int stack_size();
+	void shift_right(int arr[], int len);
+	void insert_at_bottom(int x);
+	void reverse();
 
 	void display();
 
