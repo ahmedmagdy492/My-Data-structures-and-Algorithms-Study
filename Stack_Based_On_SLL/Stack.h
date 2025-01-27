@@ -5,10 +5,10 @@
 class Stack {
 private:
 	struct Node {
-		int data;
+		float data;
 		Node* next;
 
-		Node(int data) : data(data), next(nullptr) {}
+		Node(float data) : data(data), next(nullptr) {}
 	};
 
 	Node* head;
@@ -18,9 +18,9 @@ public:
 	Stack();
 	~Stack();
 
-	void push(int value);
-	int pop();
-	int peek();
+	void push(float value);
+	float pop();
+	float peek();
 	size_t length();
 	void display();
 

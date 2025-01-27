@@ -1,18 +1,10 @@
 #include <iostream>
 
-#include "Stack.h"
+#include "MathExprParser.h"
 
 int main() {
-	Stack stack;
+	MathExprParser mathParser;
+	std::string result = mathParser.InfixToPostfix2("9-(2+3)");
 
-	stack.push(12);
-	stack.push(44);
-	stack.push(39);
-
-	stack.display();
-
-	int lastValue = stack.pop();
-	std::cout << "last: " << lastValue << std::endl;
-
-	std::cout << "peeked value: " << stack.peek() << std::endl;
+	std::cout << result << std::endl;
 }

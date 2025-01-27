@@ -14,17 +14,17 @@ Stack::~Stack() {
 	size = 0;
 }
 
-void Stack::push(int value) {
+void Stack::push(float value) {
 	Node* newNode = new Node(value);
 	newNode->next = head;
 	head = newNode;
 	size++;
 }
 
-int Stack::pop() {
+float Stack::pop() {
 	if (head) {
 		Node* poppedNode = head;
-		int value = poppedNode->data;
+		float value = poppedNode->data;
 		head = head->next;
 		delete poppedNode;
 		size--;
@@ -38,7 +38,7 @@ int Stack::pop() {
 	throw std::runtime_error("Stack is empty");
 }
 
-int Stack::peek() {
+float Stack::peek() {
 	if(empty())
 		throw std::runtime_error("Stack is empty");
 
